@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 // Import Components
 import MenuCreate from '../components/Menus/CreateMenu.vue'
 import MenuEdit from '../components/Menus/EditMenu.vue'
-import MenusShow from '../components/Menus/ShowMenu.vue'
+import MenuShow from '../components/Menus/ShowMenu.vue'
 import MenuIndex from '../components/Menus/Index.vue'
 
 const router = createRouter({
@@ -20,14 +20,12 @@ const router = createRouter({
       component: MenuCreate
     },
     {
-      path: '/menu/edit',
-      name: 'menu-edit',
+      path: '/menu/edit/:menuId',  // ต้องระบุ :menuId LAB7
       component: MenuEdit
     },
     {
-      path: '/menu',
-      name: 'menu',
-      component: MenusShow
+      path: '/menu/:menuId',
+      component: MenuShow
     }
   ]
 })
