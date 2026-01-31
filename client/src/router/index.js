@@ -1,31 +1,61 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-// Import Components
-import MenuCreate from '../components/Menus/CreateMenu.vue'
-import MenuEdit from '../components/Menus/EditMenu.vue'
-import MenuShow from '../components/Menus/ShowMenu.vue'
-import MenuIndex from '../components/Menus/Index.vue'
+// User Components
+import UserIndex from '../components/Users/Index.vue'
+import UserCreate from '../components/Users/CreateUser.vue'
+import UserEdit from '../components/Users/EditUser.vue'
+import UserShow from '../components/Users/ShowUser.vue'
+
+//Coffee
+import CoffeeIndex from '../components/Coffees/Index.vue'
+import CoffeeCreate from '../components/Coffees/CreateCoffee.vue'
+import CoffeeEdit from '../components/Coffees/EditCoffee.vue'
+import CoffeeShow from '../components/Coffees/ShowCoffee.vue'
+
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
-      path: '/menus',
-      name: 'menus',
-      component: MenuIndex
+      path: '/users',
+      name: 'users',
+      component: UserIndex
     },
     {
-      path: '/menu/create',
-      name: 'menus-create',
-      component: MenuCreate
+      path: '/user/create',
+      name: 'user-create',
+      component: UserCreate
     },
     {
-      path: '/menu/edit/:menuId',  // ต้องระบุ :menuId LAB7
-      component: MenuEdit
+      path: '/user/edit/:userId',
+      name: 'user-edit',
+      component: UserEdit
     },
     {
-      path: '/menu/:menuId',
-      component: MenuShow
+      path: '/user/:userId',
+      name: 'user-show',
+      component: UserShow
+    },
+    //coffee
+    {
+      path: '/coffees',
+      name: 'coffees',
+      component: CoffeeIndex
+    },
+    {
+      path: '/coffee/create',
+      name: 'coffee-create',
+      component: CoffeeCreate
+    },
+    {
+      path: '/coffee/edit/:coffeeId',
+      name: 'coffee-edit',
+      component: CoffeeEdit
+    },
+    {
+      path: '/coffee/:coffeeId',
+      name: 'coffee-show',
+      component: CoffeeShow
     }
   ]
 })

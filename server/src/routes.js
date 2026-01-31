@@ -3,21 +3,22 @@ const AuthenticationController = require('./controllers/AuthenticationController
 const CoffeeController = require('./controllers/CoffeeController')
 
 module.exports = (app) => {
+  // เส้นทางเดิมจากบทที่ 4 (ถ้าอยากเก็บไว้)
+  // app.get('/status', (req, res) => res.send('server is running'))
 
-  // ===== User routes =====
+  // เส้นทางใหม่สำหรับ User Management แบบ MVC
   app.get('/users', UserController.index)
   app.post('/user', UserController.create)
-  app.get('/user/:userId', UserController.show)
   app.put('/user/:userId', UserController.put)
   app.delete('/user/:userId', UserController.remove)
-
-  // ===== Auth routes =====
+  app.get('/user/:userId', UserController.show)
   app.post('/register', AuthenticationController.register)
 
-  // ===== Coffee routes (Lab 6 Exercise) =====
+  //coffee
   app.get('/coffees', CoffeeController.index)
-  app.post('/coffee', CoffeeController.create)
   app.get('/coffee/:coffeeId', CoffeeController.show)
-  app.put('/coffee/:coffeeId', CoffeeController.put)
+  app.post('/coffee', CoffeeController.create)
+  app.put('/coffee/:coffeeId', CoffeeController.update)
   app.delete('/coffee/:coffeeId', CoffeeController.remove)
+
 }

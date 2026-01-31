@@ -5,11 +5,8 @@
 </template>
 
 <script>
-export default {
-  // Logic จะเขียนตรงนี้
-}
+export default {}
 </script>
 
 <style scoped>
-/* CSS เฉพาะหน้านี้ */
 </style>
