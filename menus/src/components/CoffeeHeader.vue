@@ -1,31 +1,30 @@
 <template>
-    <div>
-        <div class="nv-navbar">
-            <ul class="nav">
-                <li><router-link :to="{ name: 'coffees' }">Coffees</router-link></li>
-                <li><router-link :to="{ name: 'menus' }">Menus</router-link></li>
-                <li><router-link :to="{ name: 'login' }">Login</router-link></li>
-            </ul>
-            <div class="clearfix"></div>
-        </div>
+  <div>
+    <div class="nv-navbar">
+      <ul class="nav">
+        <li><router-link :to="{ name: 'coffees' }">Coffees</router-link></li>
+        <li><router-link :to="{ name: 'menus' }">Menus</router-link></li>
+        <li><router-link :to="{ name: 'login' }">Login</router-link></li>
+      </ul>
+      <div class="clearfix"></div>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-    // Options API
+  // Options API
 }
 </script>
-
 <style scoped>
-/* ===== Sage Pill Navbar (Earth Tone) ===== */
+/* ===== Earth Tone Pill Navbar ===== */
 .nv-navbar {
-  background: linear-gradient(90deg, #5f7f6e, #6b8f7a);
+  background: linear-gradient(90deg, #3f5f55, #4c6e62);
   width: fit-content;
   margin: 16px auto;
   padding: 8px 12px;
   border-radius: 999px;
-  box-shadow: 0 6px 18px rgba(79, 111, 96, 0.35);
+  box-shadow: 0 6px 18px rgba(47, 79, 68, 0.35);
   position: sticky;
   top: 12px;
   z-index: 1000;
@@ -46,12 +45,12 @@ export default {
   margin: 0;
 }
 
-/* Link (เมนูแบบ pill) */
+/* Link (ปุ่มเมนู) */
 .nv-navbar .nav li a {
   display: inline-block;
   padding: 8px 16px;
   text-decoration: none;
-  color: #f4f8f6;
+  color: #eef4f1;
   font-weight: 600;
   letter-spacing: 0.4px;
   border-radius: 999px;
@@ -66,9 +65,16 @@ export default {
 
 /* Active route */
 .nv-navbar .nav li a.router-link-active {
-  background-color: #dfe8e2;   /* accent-soft */
-  color: #4f6f60;              /* accent-dark */
-  box-shadow: 0 3px 8px rgba(79, 111, 96, 0.25);
+  background-color: #dce7e2;
+  /* accent-soft */
+  color: #2f4f44;
+  /* forest */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ไม่ต้องใช้ clearfix */
+.clearfix {
+  display: none;
 }
 
 /* Responsive */
@@ -83,5 +89,3 @@ export default {
   }
 }
 </style>
-
-

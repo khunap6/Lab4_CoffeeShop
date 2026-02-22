@@ -1,67 +1,123 @@
-// server/src/controllers/CoffeeController.js
 const { Coffee } = require("../models")
+const fs = require("fs")
+const path = require("path")
+
+const uploadDir = path.join(__dirname, "../../public/uploads")
 
 module.exports = {
-  // GET /coffees
+
+  // ================= GET ALL =================
   async index(req, res) {
     try {
       const coffees = await Coffee.findAll({ order: [["id", "ASC"]] })
-      res.json({ message: "เรียกข้อมูลกาแฟสำเร็จ", data: coffees })
+      res.json(coffees)
     } catch (err) {
-      res.status(500).json({ message: "เกิดข้อผิดพลาด", error: err.message })
+      res.status(500).json({ error: err.message })
     }
   },
 
-  // GET /coffee/:coffeeId
+  // ================= GET ONE =================
   async show(req, res) {
     try {
-      const coffeeId = parseInt(req.params.coffeeId, 10)
-      const coffee = await Coffee.findByPk(coffeeId)
-
-      if (!coffee) return res.status(404).json({ message: "ไม่พบเมนูกาแฟนี้" })
-      res.json({ message: "เรียกดูเมนูกาแฟสำเร็จ", data: coffee })
+      const coffee = await Coffee.findByPk(req.params.coffeeId)
+      if (!coffee) return res.status(404).send("Not found")
+      res.json(coffee)
     } catch (err) {
-      res.status(500).json({ message: "เกิดข้อผิดพลาด", error: err.message })
+      res.status(500).json({ error: err.message })
     }
   },
 
-  // POST /coffee
+  // ================= CREATE =================
   async create(req, res) {
     try {
-      const coffee = await Coffee.create(req.body)
-      res.status(201).json({ message: "สร้างเมนูกาแฟสำเร็จ", data: coffee })
+
+      const coffee = await Coffee.create({
+        name: req.body.name,
+        price: req.body.price,
+        type: req.body.type,
+        status: req.body.status,
+        description: req.body.description,
+        content: req.body.content,
+        image: req.body.image || null   // ⭐ ใช้ค่าจาก body
+      })
+
+      res.json(coffee)
+
     } catch (err) {
-      res.status(500).json({ message: "เกิดข้อผิดพลาด", error: err.message })
+      console.error(err)
+      res.status(500).json({ error: err.message })
     }
   },
 
-  // PUT /coffee/:coffeeId
+  // ================= UPDATE =================
   async update(req, res) {
     try {
-      const coffeeId = parseInt(req.params.coffeeId, 10)
-      const coffee = await Coffee.findByPk(coffeeId)
 
-      if (!coffee) return res.status(404).json({ message: "ไม่พบเมนูกาแฟนี้" })
+      const coffee = await Coffee.findByPk(req.params.coffeeId)
+      if (!coffee) return res.status(404).send("Not found")
 
-      await coffee.update(req.body)
-      res.json({ message: "แก้ไขเมนูกาแฟสำเร็จ", data: coffee })
+      coffee.name = req.body.name
+      coffee.price = req.body.price
+      coffee.type = req.body.type
+      coffee.status = req.body.status
+      coffee.description = req.body.description
+      coffee.content = req.body.content
+
+      // ⭐ ถ้ามี image ส่งมาใน body
+      if (req.body.image) {
+        coffee.image = req.body.image
+      }
+
+      await coffee.save()
+
+      res.json(coffee)
+
     } catch (err) {
-      res.status(500).json({ message: "เกิดข้อผิดพลาด", error: err.message })
+      console.error(err)
+      res.status(500).json({ error: err.message })
+    }
+    console.log("UPDATE BODY:", req.body)
+  },
+
+  // ================= DELETE =================
+  async delete(req, res) {
+    try {
+
+      const coffee = await Coffee.findByPk(req.params.coffeeId)
+      if (!coffee) return res.status(404).send("Not found")
+
+      // ลบไฟล์รูป
+      if (coffee.image) {
+        const filePath = path.join(uploadDir, coffee.image)
+        if (fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath)
+        }
+      }
+
+      await coffee.destroy()
+
+      res.json({ success: true })
+
+    } catch (err) {
+      res.status(500).json({ error: err.message })
     }
   },
 
-  // DELETE /coffee/:coffeeId
-  async delete(req, res) {
+  // ================= CKEditor Upload =================
+  async uploadImage(req, res) {
     try {
-      const coffeeId = parseInt(req.params.coffeeId, 10)
-      const coffee = await Coffee.findByPk(coffeeId)
 
-      if (!coffee) return res.status(404).json({ message: "ไม่พบเมนูกาแฟนี้" })
+      if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" })
+      }
 
-      await coffee.destroy()
-      res.json({ message: "ลบเมนูกาแฟสำเร็จ" })
+      res.json({
+        url: "http://localhost:8081/assets/uploads/" + req.file.filename
+      })
+
     } catch (err) {
-      res.status(500).json({ message: "เกิดข้อผิดพลาด", error: err.message })
+      res.status(500).json({ error: err.message })
     }
   }
+
 }

@@ -1,14 +1,17 @@
-const passport = require('passport')
+const passport = require("passport")
 
-module.exports = function (req, res, next) {
-  passport.authenticate('jwt', function (err, user) {
+module.exports = (req, res, next) => {
+  passport.authenticate("jwt", { session: false }, (err, user) => {
+
     if (err || !user) {
-      res.status(403).send({
-        error: 'you do not have access to this resource',
+      return res.status(403).json({
+        error: "You are not authorized"
       })
-    } else {
-      req.user = user
-      next()
     }
+
+    // แนบ user ให้ใช้ต่อใน controller
+    req.user = user
+    next()
+
   })(req, res, next)
 }

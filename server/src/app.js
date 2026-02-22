@@ -10,6 +10,11 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
+const path = require('path')
+
+// ⭐ เสิร์ฟโฟลเดอร์ public จริง
+app.use('/assets', express.static(path.resolve(__dirname, '../public')))
+
 // JWT Strategy (เหมือน nv-webblog)
 require('./userPassport')
 

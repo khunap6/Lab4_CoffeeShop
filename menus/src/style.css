@@ -4,17 +4,16 @@
   line-height: 1.5;
   font-weight: 400;
 
-  /* ===== Earth Tone Cafe (No Brown) ===== */
-  --bg: #f4f1ea;              /* warm cream */
+  /* ===== Earth Tone Green Palette ===== */
+  --bg: #f4f6f2;              /* soft sage background */
   --surface: #ffffff;         /* card */
-  --text: #2f3a34;            /* deep sage-gray */
-  --muted: #7a867f;
+  --text: #1f2d24;            /* deep forest */
+  --muted: #6b7c72;
 
-  --border: rgba(90, 120, 105, 0.35);
-
-  --accent: #6b8f7a;          /* sage green */
-  --accent-dark: #4f6f60;     /* deep sage */
-  --accent-soft: #dfe8e2;     /* light sage pastel */
+  --border: rgba(76, 110, 98, 0.35);
+  --accent: #4c6e62;          /* main sage green */
+  --accent-dark: #2f4f44;     /* forest green */
+  --accent-soft: #dce7e2;     /* light mint */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -32,7 +31,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: linear-gradient(180deg, #faf8f4, var(--bg));
+  background: linear-gradient(180deg, #ffffff, var(--bg));
   color: var(--text);
 }
 
@@ -71,7 +70,10 @@ a:hover {
   text-decoration: underline;
 }
 
-/* ===== Buttons ===== */
+/* ======================================================
+   FORCE ALL BUTTONS – Earth Green Style
+   ====================================================== */
+
 button {
   appearance: none;
   border-radius: 14px;
@@ -93,19 +95,19 @@ button {
 }
 
 button:hover {
-  background: linear-gradient(180deg, #e9f1ec 0%, #cddbd3 100%);
+  background: linear-gradient(180deg, #e6f0eb 0%, #c9ddd4 100%);
   border-color: var(--accent-dark);
-  box-shadow: 0 6px 16px rgba(79, 111, 96, 0.35);
+  box-shadow: 0 6px 16px rgba(47, 79, 68, 0.35);
 }
 
 button:active {
   transform: translateY(1px);
-  box-shadow: 0 3px 8px rgba(79, 111, 96, 0.25);
+  box-shadow: 0 3px 8px rgba(47, 79, 68, 0.25);
 }
 
 button:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(107, 143, 122, 0.35);
+  box-shadow: 0 0 0 3px rgba(76, 110, 98, 0.35);
 }
 
 button:disabled {
@@ -144,7 +146,7 @@ input:focus,
 select:focus,
 textarea:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 2px rgba(107, 143, 122, 0.25);
+  box-shadow: 0 0 0 2px rgba(76, 110, 98, 0.25);
 }
 
 /* ===== Responsive ===== */
